@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Node (accidentally added frontend files)
+node_modules/
+package.json
+package-lock.json
