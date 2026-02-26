@@ -12,12 +12,10 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOriginPatterns(
-                                "http://localhost:*",
-                                "https://*.onrender.com"
-                        )
-                        .allowedMethods("*")
-                        .allowedHeaders("*");
+                        .allowedOriginPatterns("*")   // allow ALL origins
+                        .allowedMethods("*")          // GET, POST, PUT, DELETE, etc.
+                        .allowedHeaders("*")          // allow ALL headers
+                        .allowCredentials(false);     // must be false when using "*"
             }
         };
     }
