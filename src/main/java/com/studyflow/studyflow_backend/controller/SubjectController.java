@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/subjects")
-@CrossOrigin(origins = "http://localhost:8081")
 public class SubjectController {
 
     private final SubjectRepository subjectRepository;
@@ -56,6 +55,22 @@ public ResponseEntity<?> delete(@PathVariable Long id) {
 
     subjectRepository.deleteById(id);
     return ResponseEntity.ok().build();
+}
+
+@PostMapping
+public ResponseEntity<SubjectResponse> create(@RequestBody Subject subject) {
+
+    Subject saved = subjectRepository.save(subject);
+
+    SubjectResponse response = new SubjectResponse(
+            saved.getId(),
+            saved.getName(),
+            saved.getIcon(),
+            saved.getColor(),
+            List.of()   // no goals when creating
+    );
+
+    return ResponseEntity.ok(response);
 }
 
 }
