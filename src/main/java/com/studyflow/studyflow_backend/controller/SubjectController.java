@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import java.time.LocalDate;
-import com.studyflow.studyflow_backend.entity.Goal;
 
 @RestController
 @RequestMapping("/api/subjects")
@@ -28,22 +27,44 @@ private void createDefaultDataIfNeeded(String userId) {
     User user = userRepository.findById(userId)
             .orElseGet(() -> userRepository.save(new User(userId, "", "")));
 
-    Subject math = new Subject("Math", "📐", "blue");
+    // ===================== MATHEMATICS =====================
+    Subject math = new Subject("Mathematics", "📐", "blue");
     math.setUser(user);
 
-    Subject science = new Subject("Science", "🔬", "green");
-    science.setUser(user);
+    math.getGoals().add(new Goal("Complete Linear Algebra Ch. 5", true, LocalDate.now(), math));
+    math.getGoals().add(new Goal("Practice integration problems", false, LocalDate.now(), math));
+    math.getGoals().add(new Goal("Review probability notes", true, LocalDate.now(), math));
+    math.getGoals().add(new Goal("Algorithm problem", true, LocalDate.now(), math));
 
-    Goal g1 = new Goal("Practice 10 problems", false, java.time.LocalDate.now(), math);
-    Goal g2 = new Goal("Revise formulas", false, java.time.LocalDate.now(), math);
-    Goal g3 = new Goal("Read chapter 1", false, java.time.LocalDate.now(), science);
+    // ===================== JAVA =====================
+    Subject java = new Subject("Java", "☕", "orange");
+    java.setUser(user);
 
-    math.getGoals().add(g1);
-    math.getGoals().add(g2);
-    science.getGoals().add(g3);
+    java.getGoals().add(new Goal("Build REST API with Spring Boot", true, LocalDate.now(), java));
+    java.getGoals().add(new Goal("Study design patterns", true, LocalDate.now(), java));
+    java.getGoals().add(new Goal("Practice multithreading", false, LocalDate.now(), java));
 
+    // ===================== REACT =====================
+    Subject react = new Subject("React", "⚛️", "cyan");
+    react.setUser(user);
+
+    react.getGoals().add(new Goal("Learn useReducer patterns", false, LocalDate.now(), react));
+    react.getGoals().add(new Goal("Build custom hooks", true, LocalDate.now(), react));
+
+    // ===================== DATA STRUCTURES =====================
+    Subject ds = new Subject("Data Structures", "🌳", "green");
+    ds.setUser(user);
+
+    ds.getGoals().add(new Goal("Implement AVL trees", false, LocalDate.now(), ds));
+    ds.getGoals().add(new Goal("Solve graph traversal problems", false, LocalDate.now(), ds));
+    ds.getGoals().add(new Goal("Review hash map internals", true, LocalDate.now(), ds));
+    ds.getGoals().add(new Goal("Dynamic programming practice", false, LocalDate.now(), ds));
+
+    // SAVE ALL
     subjectRepository.save(math);
-    subjectRepository.save(science);
+    subjectRepository.save(java);
+    subjectRepository.save(react);
+    subjectRepository.save(ds);
 }
 
     private final SubjectRepository subjectRepository;
