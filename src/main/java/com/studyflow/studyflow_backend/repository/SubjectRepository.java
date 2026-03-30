@@ -10,4 +10,7 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
 
     @Query("SELECT DISTINCT s FROM Subject s LEFT JOIN FETCH s.goals WHERE s.user.id = :userId")
 List<Subject> findAllWithGoalsByUserId(@org.springframework.data.repository.query.Param("userId") String userId);
+
+// ✅ ADD THIS LINE
+    boolean existsByIdAndUserId(Long id, String userId);
 }
